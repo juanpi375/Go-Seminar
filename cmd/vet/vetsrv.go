@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"flag"
 	"Go-Seminary/internal/config"
-	"././internal/service/vet"
+	"Go-Seminary/internal/service/vet"
+	// "github.com/juanpi375/Go-Seminary/internal/service/vet"
 )
 
 func main(){
@@ -14,7 +15,7 @@ func main(){
 	// fmt.Println(cfg.Db.Driver)
 	// fmt.Println(cfg.Version)
 
-	service, err := vet.New(cfg)
+	service, _ := vet.New(cfg)
 	for _, elem := range service.FindAll(){
 		fmt.Println(elem)
 	}
