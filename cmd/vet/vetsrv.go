@@ -13,7 +13,6 @@ import (
 	"github.com/juanpi375/Go-Seminary/internal/config"
 	// "Go-Seminary/internal/service/vet"
 	"github.com/juanpi375/Go-Seminary/internal/database"
-	"github.com/juanpi375/Go-Seminary/internal/service/transport"
 	"github.com/juanpi375/Go-Seminary/internal/service/vet"
 )
 
@@ -23,6 +22,8 @@ func main(){
 	// fmt.Println(cfg.Version)
 	
 	db, err := database.NewDatabase(cfg)
+	defer db.Close()
+
 	if err != nil{
 		fmt.Println(err.Error())
 		os.Exit(1)

@@ -24,7 +24,7 @@ type httpService struct{
 // NewHTTPTransport ..
 func NewHTTPTransport(s Service) HTTPService{
 	endpoints := makeEndpoints(s)
-	return httpService{}
+	return httpService{endpoints}
 }
 
 func makeEndpoints (s Service) []*endpoint{
@@ -32,18 +32,66 @@ func makeEndpoints (s Service) []*endpoint{
 	list = append(list, &endpoint{
 		method: "GET",
 		path: "/animals",
-		function: getAll(s)
+		function: getAll(s),
 	})
+	// list = append(list, &endpoint{
+	// 	method: "GET",
+	// 	path: "/animals/:id",
+	// 	function: getOne(s),
+	// })
+	// list = append(list, &endpoint{
+	// 	method: "POST",
+	// 	path: "/animals",
+	// 	function: addOne(s),
+	// })
+	// list = append(list, &endpoint{
+	// 	method: "DELETE",
+	// 	path: "/animals/:id",
+	// 	function: deleteOne(s),
+	// })
+	// list = append(list, &endpoint{
+	// 	method: "PUT",
+	// 	path: "/animals/:id",
+	// 	function: replaceOne(s),
+	// })
 	return list
 }
 
 func getAll(s Service) gin.HandlerFunc{
 	return func (c *gin.Context){
 		c.JSON(http.StatusOK, gin.H{
-			"animals": s.FindAll()
+			"animals": s.FindAll(),
 		})
 	}
 }
+// func getAll(s Service) gin.HandlerFunc{
+// 	return func (c *gin.Context){
+// 		c.JSON(http.StatusOK, gin.H{
+// 			"animals": s.FindAll(),
+// 		})
+// 	}
+// }
+// func getAll(s Service) gin.HandlerFunc{
+// 	return func (c *gin.Context){
+// 		c.JSON(http.StatusOK, gin.H{
+// 			"animals": s.FindAll(),
+// 		})
+// 	}
+// }
+// func getAll(s Service) gin.HandlerFunc{
+// 	return func (c *gin.Context){
+// 		c.JSON(http.StatusOK, gin.H{
+// 			"animals": s.FindAll(),
+// 		})
+// 	}
+// }
+// func getAll(s Service) gin.HandlerFunc{
+// 	return func (c *gin.Context){
+// 		c.JSON(http.StatusOK, gin.H{
+// 			"animals": s.FindAll(),
+// 		})
+// 	}
+// }
 
 // Register ..
 func (s httpService) Register(r *gin.Engine){
