@@ -7,13 +7,15 @@ import (
 
 // DbConfig ..
 type DbConfig struct{
-	Driver string `yaml: "driver"`
+	Type string `yaml:"type"`
+	Driver string `yaml:"driver"`
+	Conn string `yaml:"conn"`
 }
 
 // Config ..
 type Config struct{
-	Db DbConfig `yaml: "db"`
-	Version string `yaml: "version"`
+	Db DbConfig `yaml:"db"`
+	Version string `yaml:"version"`
 }
 
 // LoadConfig ..
