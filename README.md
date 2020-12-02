@@ -8,8 +8,10 @@
 
 ## To run the application follow these straightforward steps:
 #### **Prerequisites:** [golang](https://golang.org/) installed
-1. Clone the repository in your $GOPATH/src (in Windows, by default, it is C:/Users/$YOURUSER/go). Create the *src* folder if necessary
-2. Open it in your favorite IDE (I use [Visual Studio Code](https://code.visualstudio.com/) but you can use other options: [Atom](https://atom.io/), [Sublime Text](https://www.sublimetext.com/3) or others)
+1. Clone the repository in your $GOPATH/src. Create the *src* folder if necessary  
+(in Windows, the $GOPATH by default is C:/Users/$YOURUSER/go)
+2. Open it in your favorite IDE  
+(I use [Visual Studio Code](https://code.visualstudio.com/) but you can use other options: [Atom](https://atom.io/), [Sublime Text](https://www.sublimetext.com/3) or others)
 3. Open the console and write the command:
 ~~~
 go run cmd/vet/vetsrv.go -config ./config/config.yaml
