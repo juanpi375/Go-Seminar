@@ -1,4 +1,8 @@
+// This class is the main. Creates the DB, sets
+// the configuration and starts the service
+
 package main
+
 
 import (
 	"flag"
@@ -9,17 +13,15 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	// "time" // Uncomment for inserting one animal
-	// "Go-Seminary/internal/config"
 	"github.com/juanpi375/Go-Seminary/internal/config"
-	// "Go-Seminary/internal/service/vet"
 	"github.com/juanpi375/Go-Seminary/internal/database"
 	"github.com/juanpi375/Go-Seminary/internal/service/vet"
 )
 
+
+
 func main(){
 	cfg := readConfig()
-	// fmt.Println(cfg.Db.Driver)
-	// fmt.Println(cfg.Version)
 	
 	db, err := database.NewDatabase(cfg)
 	defer db.Close()
@@ -45,6 +47,8 @@ func main(){
 	}
 }
 
+
+// Reads the configuration of the config file
 func readConfig() *config.Config{
 	configFile := flag.String("config", "./config.yaml", "This is the config service")
 	flag.Parse()
@@ -57,21 +61,21 @@ func readConfig() *config.Config{
 	return cfg
 } 
 
-// Creates the schema if not exists
+
+// Creates the schema when it doesn't exist
 func createSchema (db *sqlx.DB) error{
 	schema := `CREATE TABLE IF NOT EXISTS animals (
 		id integer primary key autoincrement,
 		name varchar,
 		age integer);`
 	
-	// Execute a query on the server
 	_, err := db.Exec(schema)
 	if err != nil{
 		return err
 	}
 
 	// Uncomment only for inserting one extra animal!
-	// // or, you can use MustExec, which panics on error
+	
 	// insertAnimal := `INSERT INTO animals (name, age) VALUES (?,?)`
 	// name := fmt.Sprintf("Name of %v", time.Now().Nanosecond())
 	// age := time.Now().Nanosecond()

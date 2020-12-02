@@ -1,3 +1,6 @@
+// This allows the service to be acceded
+// via HTTP requests (REST)
+
 package vet
 
 import (
@@ -31,6 +34,14 @@ func NewHTTPTransport(s Service) HTTPService{
 	endpoints := makeEndpoints(s)
 	return httpService{endpoints}
 }
+
+// Register ..
+func (s httpService) Register(r *gin.Engine){
+	for _, e := range s.endpoints{
+		r.Handle(e.method, e.path, e.function)
+	}
+} 
+
 
 func makeEndpoints (s Service) []*endpoint{
 	list := []*endpoint{}
@@ -137,10 +148,3 @@ func replaceOne(s Service) gin.HandlerFunc{
 		})
 	}
 }
-
-// Register ..
-func (s httpService) Register(r *gin.Engine){
-	for _, e := range s.endpoints{
-		r.Handle(e.method, e.path, e.function)
-	}
-} 

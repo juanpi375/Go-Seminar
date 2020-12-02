@@ -1,3 +1,7 @@
+// This is the entities class
+// Here the attributes and methods of
+// the resources are set
+
 package vet
 
 import (
@@ -6,6 +10,7 @@ import (
 )
 
 // Animal ...
+// Definition of attributes
 type Animal struct{
 	ID int64
 	Name string 
@@ -13,6 +18,7 @@ type Animal struct{
 }
 
 // Service ...
+// Declaration of methods
 type Service interface{
 	FindByID(int) *Animal
 	FindAll() []*Animal
@@ -21,16 +27,21 @@ type Service interface{
 	ReplaceAnimal(int, Animal)
 }
 
+
+// With the "New" method makes 
+// a factory pattern to expose
+// the functionality
 type service struct{
 	db *sqlx.DB
 	conf *config.Config
 }
-
 // New ...
 func New (db *sqlx.DB, c *config.Config) (Service, error){
 	return service{db, c}, nil
 }
 
+
+// Definition of methods / Implementation of the interface------------
 func (s service) FindAll() []*Animal{
 	var group []*Animal
 	if err := s.db.Select(&group, "SELECT * FROM animals"); err != nil{
@@ -41,10 +52,6 @@ func (s service) FindAll() []*Animal{
 func (s service) FindByID(id int) *Animal{
 	var individual []*Animal
 	query := `SELECT * FROM animals WHERE id = ?`
-	// Plan B:
-	// if err := s.db.MustExec(query, id); err != nil{
-	// 	panic(err)
-	// }
 	if err := s.db.Select(&individual, query, id); err != nil{
 		panic(err)
 	}
@@ -66,10 +73,10 @@ func (s service) DeleteAnimal(id int){
 	}
 }
 func (s service) ReplaceAnimal(id int, a Animal){ 
-	// var individual *Animal
 	query := `UPDATE animals SET name=?, age=? where id=?`
 	_, err := s.db.Exec(query, a.Name, a.Age, id)
 	if err != nil{
 		panic(err)
 	}
 }
+-----------------------------------------------------------------

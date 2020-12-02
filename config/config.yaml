@@ -1,3 +1,5 @@
+# This is the configuration of the DB file
+
 db: 
   type: "sqlite3"
   driver: "sqlite3"

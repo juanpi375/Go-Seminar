@@ -1,3 +1,6 @@
+// This is the configuration that sets which 
+// database and driver our service utilizes
+
 package config
 
 import (
