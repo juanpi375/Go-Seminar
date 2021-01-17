@@ -1,4 +1,4 @@
-# GoLang Seminary
+# GoLang Seminar
 ### Simple REST API with the topic of a Vet that includes the following topics:
 - CRUD of animals
 - Utilization of SQLite as persistence
